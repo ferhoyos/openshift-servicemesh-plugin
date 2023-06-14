@@ -3,7 +3,7 @@ import { toValidDuration } from '../config/ServerConfig';
 import { BoundsInMilliseconds } from 'types/Common';
 
 const webRoot = (window as any).WEB_ROOT ? (window as any).WEB_ROOT : undefined;
-const baseName = webRoot && webRoot !== '/' ? webRoot + '/console' : '/console';
+const baseName = webRoot && webRoot !== '/' ? webRoot + '/' : '/';
 const historyMode = (window as any).HISTORY_MODE ? (window as any).HISTORY_MODE : 'browser';
 const history = process.env.TEST_RUNNER
   ? createMemoryHistory()
@@ -79,14 +79,14 @@ export enum ParamAction {
 
 export class HistoryManager {
   static setParam = (name: URLParam | string, value: string) => {
-    const urlParams = new URLSearchParams(history.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     urlParams.set(name, value);
-    history.replace(history.location.pathname + '?' + urlParams.toString());
+    history.replace(window.location.pathname + '?' + urlParams.toString());
   };
 
   static getParam = (name: URLParam | string, urlParams?: URLSearchParams): string | undefined => {
     if (!urlParams) {
-      urlParams = new URLSearchParams(history.location.search);
+      urlParams = new URLSearchParams(window.location.search);
     }
     const p = urlParams.get(name);
     return p !== null ? p : undefined;
@@ -103,17 +103,17 @@ export class HistoryManager {
   };
 
   static deleteParam = (name: URLParam, historyReplace?: boolean) => {
-    const urlParams = new URLSearchParams(history.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     urlParams.delete(name);
     if (historyReplace) {
-      history.replace(history.location.pathname + '?' + urlParams.toString());
+      history.replace(window.location.pathname + '?' + urlParams.toString());
     } else {
-      history.push(history.location.pathname + '?' + urlParams.toString());
+      history.push(window.location.pathname + '?' + urlParams.toString());
     }
   };
 
   static setParams = (params: URLParamValue[], paramAction?: ParamAction, historyReplace?: boolean) => {
-    const urlParams = new URLSearchParams(history.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
 
     if (params.length > 0 && paramAction === ParamAction.APPEND) {
       params.forEach(param => urlParams.delete(param.name));
@@ -130,9 +130,9 @@ export class HistoryManager {
     });
 
     if (historyReplace) {
-      history.replace(history.location.pathname + '?' + urlParams.toString());
+      history.replace(window.location.pathname + '?' + urlParams.toString());
     } else {
-      history.push(history.location.pathname + '?' + urlParams.toString());
+      history.push(window.location.pathname + '?' + urlParams.toString());
     }
   };
 
