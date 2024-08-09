@@ -72,9 +72,9 @@ jobs:
 
     - name: Configure git backend
       run: |
-        git config user.email 'kiali-dev@googlegroups.com'
+        git config user.email 'fhoyosle@redhat.com'
 
-        git config user.name 'kiali-bot'
+        git config user.name 'ferhoyos'
 
     - name: Create Tag in kiali/openshift-servicemesh-plugin
       id: tag_ossmc
