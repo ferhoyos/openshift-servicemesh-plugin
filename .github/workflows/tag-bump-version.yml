@@ -36,7 +36,7 @@ jobs:
         BRANCHES=$(python conversor.py $TAG_BRANCHES)
         echo "branches=$BRANCHES" >> $GITHUB_ENV
 
-  create_tag:
+  bump_version:
     needs: [initialize]
     runs-on: ubuntu-latest
     strategy:
