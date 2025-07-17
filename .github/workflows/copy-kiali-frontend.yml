@@ -59,8 +59,5 @@ jobs:
       run: |
         hack/copy-frontend-src-to-ossmc.sh --source-ref "$BRANCH"
 
-    - name: Push changes
-      env:
-        BRANCH: ${{matrix.branch}}
-      run: |
+        # Push the changes to the branch
         git push origin $(git rev-parse HEAD):refs/heads/$BRANCH
