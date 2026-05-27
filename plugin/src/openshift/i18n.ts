@@ -13,6 +13,6 @@ export const i18n = new Proxy(fallbackI18n as I18nInstance, {
   get: (_target, prop) => {
     const activeI18n = resolveI18n() as unknown as object;
     const value = Reflect.get(activeI18n, prop);
-    return typeof value === 'function' ? value.bind(resolveI18n()) : value;
+    return typeof value === 'function' ? value.bind(activeI18n) : value;
   }
 }) as I18nInstance;
